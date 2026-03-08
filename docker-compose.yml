@@ -1,0 +1,30 @@
+services:
+  db-auth:
+    image: postgres:16-alpine
+    container_name: checkbill-auth-db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: checkbill_auth
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: auth_password_here
+    volumes:
+      - auth_data:/var/lib/postgresql/data
+
+  db-business:
+    image: postgres:16-alpine
+    container_name: checkbill-business-db
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: checkbill_business
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: business_password_here
+    volumes:
+      - business_data:/var/lib/postgresql/data
+
+volumes:
+  auth_data:
+  business_data:
